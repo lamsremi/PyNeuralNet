@@ -16,7 +16,6 @@ class Model():
         Init the model instance.
         """
 
-
     def predict(self, features):
         """
         Predict.
@@ -24,7 +23,6 @@ class Model():
         Args:
             features (ndarray)
         """
-
 
     def fit(self,
             features,
@@ -159,7 +157,6 @@ class Model():
         # Retunr value.
         return out_layer
 
-
     def persist_parameters(self, model_version):
         """
         Persist parameters.
@@ -170,7 +167,6 @@ class Model():
         if not os.path.isdir(folder_path):
             os.mkdir(folder_path)
         # Save
-
 
     def load_parameters(self, model_version):
         """
