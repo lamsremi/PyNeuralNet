@@ -11,24 +11,26 @@ import tools
 
 
 @tools.debug
-def main(input_df,
+def main(data_df,
          data_source,
          model_type,
          model_version):
     """
     Main prediction function.
     Args:
-        input_df (DataFrame): input to predict.
+        data_df (DataFrame): input to predict.
         data_source (str): source of the data.
         model_type (str): type of the chosen model for the prediction.
         model_version (str): version of model to use.
+    Return:
+        prediction (ndarray)
     """
     # Load normalized parameters
     norm_params = load_params(data_source)
 
     # Process input
     features = pre_process(
-        features=np.array(input_df),
+        features=np.array(data_df),
         norm_params=norm_params)
 
     # Init a model if none
@@ -49,12 +51,14 @@ def main(input_df,
     # Return value
     return prediction
 
+
 # @tools.debug
 def load_params(data_source):
     """Load normalized parameters."""
     with open("data/{}/norm_params.pkl".format(data_source), 'rb') as handle:
         norm_params = pickle.load(handle)
     return norm_params
+
 
 def pre_process(features, norm_params):
     """Preprocess."""
@@ -121,7 +125,7 @@ if __name__ == '__main__':
     for source in ["health"]:
         for model_str in ["doityourself", "keras"]:
             main(
-                input_df,
+                data_df=input_df,
                 data_source=source,
                 model_type=model_str,
                 model_version=source)

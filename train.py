@@ -39,10 +39,13 @@ def main(data_df=None,
     # Train the model
     model.fit(features, truth,
               input_dim=features.shape[-1], output_dim=truth.shape[-1],
-              batch_size=100, epochs=2)
+              batch_size=50, epochs=5)
 
-    # Store the model parameters.
-    model.persist_parameters(model_version=model_version)
+    # # Store the model parameters.
+    # model.persist_parameters(model_version=model_version)
+
+    # # Return
+    # return True
 
 
 # @tools.debug
@@ -131,12 +134,13 @@ def init_model(model_type):
     model_class = importlib.import_module("library.{}.model".format(model_type))
     # Inits the model instance
     model = model_class.Model()
+    # Return value
     return model
 
 
 if __name__ == '__main__':
     for source in ["health"]:
-        for model_str in ["doityourself", "keras"]:
+        for model_str in ["tensorflow", "keras", "doityourself"]:
             main(data_df=None,
                  data_source=source,
                  model_type=model_str,

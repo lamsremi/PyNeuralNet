@@ -27,9 +27,8 @@ class Model():
         """Predict method.
 
         Args:
-            input_var (Serie or dict): input to predict the class from.
+            inputs_epoch (ndarray): input to predict the class from.
         """
-        # print(inputs_epoch.shape)
         epoch_len = inputs_epoch.shape[0]
         prediction = np.zeros([epoch_len, self._output_dim])
         for i in range(epoch_len):
@@ -49,8 +48,23 @@ class Model():
         output = output_layer.copy()
         return output
 
-    def fit(self, inputs_epoch, truth_epoch, input_dim, output_dim, batch_size, epochs):
-        """Fit."""
+    def fit(self,
+            inputs_epoch,
+            truth_epoch,
+            input_dim,
+            output_dim,
+            batch_size,
+            epochs):
+        """Fit.
+
+        Args:
+            features (ndarray)
+            truth (ndarray)
+            input_dim (int)
+            output_dim (int)
+            batch_size (int)
+            epochs (int)
+        """
         # Set input and output dim.
         self._input_dim = input_dim
         self._output_dim = output_dim
@@ -65,6 +79,21 @@ class Model():
             history_cost[r_value, 0] = self.fit_epoch(
                 inputs_epoch, truth_epoch, batch_size)
             print('Cost epoch {} : {}'.format(r_value, history_cost[r_value]))
+
+    def fit_epoch(self, inputs_epoch, truth_epoch, batch_size):
+        """Fit epoch.
+        """
+        inputs_batch_list, truth_batch_list = \
+            self.create_batches(inputs_epoch, truth_epoch, batch_size)
+        batch_mean_cost = np.zeros([len(inputs_batch_list), 1])
+        for b in range(len(inputs_batch_list)):
+            # print('\n--> Fitting for the batch {}...'.format(b))
+            self.fit_batch(inputs_batch_list[b], truth_batch_list[b])
+            pred_epoch = self.predict(inputs_epoch)
+            batch_mean_cost[b] = \
+                np.mean(self.cost_function(pred_epoch, truth_epoch,
+                                           self.loss), axis=0)
+        return np.mean(batch_mean_cost, axis=0)
 
     def persist_parameters(self, model_version):
         """
@@ -186,30 +215,18 @@ class Model():
 
     def create_batches(self, inputs_epoch, truth_epochs, batch_size):
         """Create batches."""
-        # print('\n--> Creation of batches...')
+        print(truth_epochs.shape)
+        print(inputs_epoch.shape)
         inputs_batch_list = []
         truth_batch_list = []
         epoch_len = inputs_epoch.shape[0]
         int_division = int(epoch_len/batch_size)
+        # For each batch
         for b in range(int_division):
-            inputs_batch_list.append(inputs_epoch[b*10:(b+1)*10])
-            truth_batch_list.append(inputs_epoch[b*10:(b+1)*10])
-        inputs_batch_list.append(inputs_epoch[int_division*10:])
-        truth_batch_list.append(inputs_epoch[int_division*10:])
+            inputs_batch_list.append(inputs_epoch[b*batch_size:(b+1)*batch_size])
+            truth_batch_list.append(truth_epochs[b*batch_size:(b+1)*batch_size])
+        # Last batch
+        # inputs_batch_list.append(inputs_epoch[int_division*batch_size:])
+        # truth_batch_list.append(truth_epochs[int_division*batch_size:])
         return inputs_batch_list, truth_batch_list
-
-    def fit_epoch(self, inputs_epoch, truth_epoch, batch_size):
-        """Fit epoch.
-        """
-        inputs_batch_list, truth_batch_list = \
-            self.create_batches(inputs_epoch, truth_epoch, batch_size)
-        batch_mean_cost = np.zeros([len(inputs_batch_list), 1])
-        for b in range(len(inputs_batch_list)):
-            # print('\n--> Fitting for the batch {}...'.format(b))
-            self.fit_batch(inputs_batch_list[b], truth_batch_list[b])
-            pred_epoch = self.predict(inputs_epoch)
-            batch_mean_cost[b] = \
-                np.mean(self.cost_function(pred_epoch, truth_epoch,
-                                           self.loss), axis=0)
-        return np.mean(batch_mean_cost, axis=0)
 

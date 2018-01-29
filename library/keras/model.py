@@ -12,8 +12,7 @@ class Model():
     """
     Keras ann model.
     """
-    def __init__(self,
-                 ):
+    def __init__(self):
         """
         Init the model instance.
         """
@@ -22,12 +21,29 @@ class Model():
     def predict(self, features):
         """
         Predict.
+
+        Args:
+            features (ndarray)
         """
         return self._model.predict(features)
 
-    def fit(self, features, truth, input_dim, output_dim, batch_size, epochs):
+    def fit(self,
+            features,
+            truth,
+            input_dim,
+            output_dim,
+            batch_size,
+            epochs):
         """
         Fit.
+
+        Args:
+            features (ndarray)
+            truth (ndarray)
+            input_dim (int)
+            output_dim (int)
+            batch_size (int)
+            epochs (int)
         """
         self._model = Sequential()
         self._model.add(
