@@ -1,33 +1,83 @@
 # Neural networks implementation
 
 
-## Synopsys
+## Introduction
 
-This project aims to recode the algorithms for using and training neural networks.
+This module presents 3 implementations of the same neural network:
+* Using the high level framework Keras
+* Using the lower level framework TensorFlow
+* From scratch using only numpy library
+
+The implemented model is a basic neural network with the following attributes:
+* 2 layers made of 10 and 15 neurons
+* 2 sigmoid activations
+* Stochastic gradient descent with a learning rate of 0.005
+* Mean absolute error as cost function
+
 
 ## Motivation
 
-The purposes are to learn how does a neural network work and how it is being trained and improve programming skills.
+The purpose of this exercice is to gain a complete understanding of how neural networks work (forward and backward propagation), which helps to understand and design more advanced deep learning models such as RNN or encoder-decoder.
+
+It is also a valuable exercice to practice and improve python programming skills.
+
 
 ## Code structure
 
-The "doityourself" model is compared to an keras based implementation using the sa,e hyper parameters.
+The code is structured as follow:
+```
+pyNeuralNet
+├- data
+│   └- health
+│       ├- raw_data
+│       │   └- data.csv
+│       └- data.pkl
+├- library
+│   ├- doityourself
+│   │   ├- params
+│   │   └- model.py
+│   ├- keras
+│   │   ├- params
+│   │   └- model.py
+│   └- tensorflow
+│       ├- params
+│       └- model.py
+├- .gitignore
+├- predict.py
+├- README.md
+├- requirements.txt
+├- tools.py
+└- train.py
+```
 
-## Pseudocode
+## Installation
+
+To dowload the different implementations of neural networks, you can directly clone the repository
+```
+git clone https://github.com/lamsremi/pyNeuralNet.git
+```
+Then install the requirements in your environment or in a virtual one
+```
+pip install -r requirements.txt
+```
+
+## Run
 
 ```
 # Training
+>>> from train import main
 >>> for source in ["health"]:
-        for model_str in ["doityourself", "keras"]:
+        for model in ["doityourself", "keras", "tensorflow]:
             main(data_df=None,
                  data_source=source,
-                 model_type=model_str,
+                 model_type=model,
                  model_version=source)
 
 # Prediction
+>>>from predict import main
 >>> input_df = pd.read_pickle("data/health/data.pkl").iloc[100:101, :-1].copy()
     for source in ["health"]:
-        for model_str in ["doityourself", "keras"]:
+        for model_str in ["doityourself", "keras", "tensorflow"]:
             main(
                 input_df,
                 data_source=source,
@@ -35,16 +85,7 @@ The "doityourself" model is compared to an keras based implementation using the 
                 model_version=source)
 ```
 
-## Installation
-
-To dowload the different implementations of neural networks, you can clone the repository:
-
-```
-git clone https://github.com/lamsremi/pyNeuralNet.git
-```
-
 ## Author
 
 Rémi Moise
-
-## TODO
+moise.remi@gmail.com
