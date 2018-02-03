@@ -1,4 +1,4 @@
-# From scratch implementation of basic neural network.
+# Neural networks implementations
 
 
 ## Synopsys
@@ -33,6 +33,14 @@ The "doityourself" model is compared to an keras based implementation using the 
                 data_source=source,
                 model_type=model_str,
                 model_version=source)
+```
+
+## Installation
+
+To dowload the different implementations of neural networks, you can directly clone the repository
+
+```
+git clone https://github.com/lamsremi/pyNeuralNet.git
 ```
 
 ## Author
