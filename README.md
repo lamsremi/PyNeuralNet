@@ -60,7 +60,7 @@ To dowload the different implementations of neural networks, you can directly cl
 $ git clone https://github.com/lamsremi/pyNeuralNet.git
 ```
 
-Then install the requirements in your environment or in a virtual one :
+Then install the requirements in your local environment or in a virtual one that was previously created :
 
 ```
 $ pip install -r requirements.txt
