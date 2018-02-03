@@ -27,21 +27,23 @@ It is also a valuable exercice to practice and improve python programming skills
 The code is structured as follow:
 ```
 pyNeuralNet
-├- data
-│   └- health
-│       ├- raw_data
+├- data/
+│   └- health/
+│       ├- raw_data/
 │       │   └- data.csv
 │       └- data.pkl
-├- library
-│   ├- doityourself
-│   │   ├- params
+├- library/
+│   ├- doityourself/
+│   │   ├- params/
 │   │   └- model.py
-│   ├- keras
-│   │   ├- params
+│   ├- keras/
+│   │   ├- params/
 │   │   └- model.py
-│   └- tensorflow
-│       ├- params
+│   └- tensorflow/
+│       ├- params/
 │       └- model.py
+├- unittest/
+│   └- test_core.py
 ├- .gitignore
 ├- predict.py
 ├- README.md
@@ -52,19 +54,31 @@ pyNeuralNet
 
 ## Installation
 
-To dowload the different implementations of neural networks, you can directly clone the repository
-```
-git clone https://github.com/lamsremi/pyNeuralNet.git
-```
-Then install the requirements in your environment or in a virtual one
-```
-pip install -r requirements.txt
-```
-
-## Run
+To dowload the different implementations of neural networks, you can directly clone the repository :
 
 ```
-# Training
+$ git clone https://github.com/lamsremi/pyNeuralNet.git
+```
+
+Then install the requirements in your environment or in a virtual one :
+
+```
+$ pip install -r requirements.txt
+```
+
+## Test
+
+To test if all the functionnalities are working :
+
+```
+$ python -m unittest discover -s unittest
+```
+
+## Use
+
+For training :
+
+```
 >>> from train import main
 >>> for source in ["health"]:
         for model in ["doityourself", "keras", "tensorflow]:
@@ -72,8 +86,11 @@ pip install -r requirements.txt
                  data_source=source,
                  model_type=model,
                  model_version=source)
+```
 
-# Prediction
+For predicting :
+
+```
 >>>from predict import main
 >>> input_df = pd.read_pickle("data/health/data.pkl").iloc[100:101, :-1].copy()
     for source in ["health"]:
@@ -85,13 +102,6 @@ pip install -r requirements.txt
                 model_version=source)
 ```
 
-## Installation
-
-To dowload the different implementations of neural networks, you can directly clone the repository
-
-```
-git clone https://github.com/lamsremi/pyNeuralNet.git
-```
 
 ## Author
 
