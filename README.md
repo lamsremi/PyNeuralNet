@@ -17,7 +17,7 @@ The implemented model is a basic neural network with the following attributes:
 
 ## Motivation
 
-The purpose of this exercice is to gain a complete understanding of how neural networks work (forward and backward propagation), which helps to understand and design more advanced deep learning models such as RNN or encoder-decoder.
+The purpose of this exercice is to gain a complete understanding on how neural networks work (forward and backward propagation), which helps to understand and design more advanced deep learning models such as RNN or encoder-decoder.
 
 It is also a valuable exercice to practice and improve python programming skills.
 
